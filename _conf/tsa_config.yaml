@@ -1,0 +1,49 @@
+hydra:
+  run:
+    dir: _log/tsa_log/unirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: _log/tsa_log/multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+path:
+  dataset_folder: 'data/raw'
+  pretrained_model_folder: '/workspace/tsa/HuggingfaceCKPTs'
+  ckpt_folder: '_ckpt'
+
+data:
+  dataset: 'cora'
+  num_classes: 170 
+  num_nodes: 2708
+  truncated_k: 1360
+
+model:
+  pretrained_model_name: 'multi-qa-distilbert-cos-v1'
+  train_layer: '0.auto_model.transformer.layer.5'
+  attn_model_name: 'cross-attention'
+  num_attn_heads: 12
+
+loss:
+  alg_objective: 'cl'
+  cls_objective: 'lsce'
+  reg_objective: 'cos'
+  alpha: 1
+  beta: 1
+  gamma: 5
+
+optim:
+  learning_rate: 0.0001
+
+sched:
+  patience: 5
+
+es:
+  patience: 10
+  min_delta: 0.00001
+
+exp:
+  exp_name: 'text_structure_align'
+  batch_size: 16
+  max_epochs: 20
+  random_seed: 0
+  gpu_num: 0`
+  save_ckpt: true
+  save_st_model: true

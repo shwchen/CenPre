@@ -1,0 +1,39 @@
+hydra:
+  run:
+    dir: _log/graphcls_log/unirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: _log/graphcls_log/multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+path:
+  dataset_folder: 'data/raw'
+  ckpt_folder: '_ckpt'
+
+data:
+  dataset: 'MUTAG'
+  num_one_hop_classes: 31
+
+model:
+  gnn_model_name: "gin"
+  gnn_embedding_dim: 768
+  num_attn_heads: 8
+  alpha: 1
+  beta: 1
+  gamma: 1
+
+optim:
+  learning_rate: 0.001
+
+sched:
+  patience: 8
+
+es:
+  patience: 15
+  min_delta: 0.00001
+
+exp:
+  exp_name: "graphcls"
+  batch_size: 1
+  max_epochs: 20
+  random_seed: 1
+  save_ckpt: true
+  save_st_model: false

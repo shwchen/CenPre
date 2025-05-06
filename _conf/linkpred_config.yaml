@@ -1,0 +1,35 @@
+hydra:
+  run:
+    dir: _log/linkpred_log/unirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: _log/linkpred_log/multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+path:
+  dataset_folder: 'data/raw'
+  st_model_folder: '/workspace/research/TextStructureAlign/_ckpt/cora/st_models/ablate-graph'
+  ckpt_folder: '_ckpt'
+
+data:
+  dataset: 'cora'
+  num_nodes: 2708
+  train_percent: 0.85
+  valid_percent: 0.05
+
+model:
+  encoding_batch_size: 128
+
+optim:
+  learning_rate: 0.001
+
+sched:
+  patience: 15
+
+es:
+  patience: 30
+  min_delta: 0.00001
+
+exp:
+  exp_name: "linkpred"
+  max_epochs: 150
+  random_seed: 2
+  save_ckpt: true

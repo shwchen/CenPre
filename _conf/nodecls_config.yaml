@@ -1,0 +1,39 @@
+hydra:
+  run:
+    dir: _log/nodecls_log/unirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+  sweep:
+    dir: _log/nodecls_log/multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+path:
+  dataset_folder: 'data/raw'
+  st_model_folder: '/workspace/research/TextStructureAlign/_ckpt/cora/st_models/cross-attn'
+  ckpt_folder: '_ckpt'
+
+data:
+  dataset: 'cora'
+  num_features: 1433
+  num_nodes: 2708
+  split: -1
+  train_percent: 0.85
+  valid_percent: 0.05
+
+model:
+  encoding_batch_size: 128
+  gnn_model_name: "gcn"
+
+optim:
+  learning_rate: 0.001
+
+sched:
+  patience: 8
+
+es:
+  patience: 15
+  min_delta: 0.00001
+
+exp:
+  exp_name: "nodecls"
+  max_epochs: 500
+  gpu_num: 7
+  random_seed: 42
+  save_ckpt: true
